@@ -144,26 +144,32 @@ function dataReducer(state, action) {
         if (shouldAwardPoints) {
             const basePoints = { xp: 115, coins: 8 };
             const attribute = newState.attributes.find(attr => attr.id === attributeIdToReward);
-            newState.attributes = newState.attributes.map(attr => {
-                if (attr.id === attributeIdToReward) {
-                   let newXp = attr.xp + basePoints.xp;
-                    let newLevel = attr.level;
-                    let xpToNext = attr.xpToNextLevel;
-                    while (newXp >= xpToNext) {
-                        newXp -= xpToNext;
-                        newLevel++;
-                        xpToNext = calculateXpToNextLevel(newLevel);
-                        newState.leveledUpAttributeId = attr.id;
-                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+
+            if (attribute) {
+                newState.attributes = newState.attributes.map(attr => {
+                    if (attr.id === attributeIdToReward) {
+                        let newXp = attr.xp + basePoints.xp;
+                        let newLevel = attr.level;
+                        let xpToNext = attr.xpToNextLevel;
+                        while (newXp >= xpToNext) {
+                            newXp -= xpToNext;
+                            newLevel++;
+                            xpToNext = calculateXpToNextLevel(newLevel);
+                            newState.leveledUpAttributeId = attr.id;
+                            newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                        }
+                        return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
                     }
-                    return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
+                    return attr;
+                });
+                if (!newState.toastInfo) {
+                    newState.toastInfo = { message: `Hábito Completo!`, icon: attribute.name.split(' ')[0] };
                 }
-                return attr;
-            });
-            newState.user = { ...newState.user, coins: newState.user.coins + basePoints.coins };
-             if (!newState.toastInfo) {
-                newState.toastInfo = { message: `Hábito Completo!`, icon: attribute.name.split(' ')[0]};
+            } else {
+                newState.toastInfo = { message: `Hábito Completo!`, icon: '✅' };
             }
+
+            newState.user = { ...newState.user, coins: newState.user.coins + basePoints.coins };
         }
         return newState;
     }
