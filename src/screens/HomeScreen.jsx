@@ -4,6 +4,7 @@ import { useData } from '../context/DataContext';
 import HabitItem from '../components/HabitItem/HabitItem';
 import TaskItem from '../components/TaskItem/TaskItem';
 import styles from './HomeScreen.module.css';
+import mascot from '../assets/mascot.svg';
 
 // Helper para verificar se a data de um hábito é hoje
 const isSameDay = (d1, d2) => {
@@ -28,7 +29,7 @@ const HomeScreen = ({ setActiveScreen, setHabitActionMenu }) => {
     if (hasNoContent) {
         return (
             <div className={styles.emptyStateContainer}>
-                <p className={styles.emptyStateEmoji}>👋</p>
+                <img src={mascot} alt="Mascote" className={styles.emptyStateImage} />
                 <h2 className={styles.emptyStateTitle}>Parece vazio por aqui!</h2>
                 <p className={styles.emptyStateText}>Sua jornada começa agora. Que tal dar o primeiro passo?</p>
                 <div className={styles.launchpadContainer}>
