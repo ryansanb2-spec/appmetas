@@ -1,5 +1,6 @@
 // Caminho: src/context/DataContext.jsx
 import React, { createContext, useReducer, useContext } from 'react';
+import useSound from '../hooks/useSound';
 import partyIcon from '../assets/icon-party.svg';
 import checkIcon from '../assets/icon-check.svg';
 import flagIcon from '../assets/icon-flag.svg';
@@ -37,13 +38,14 @@ const INITIAL_DATA = {
   goals: [],
   habits: [],
   tasks: [],
+  soundEnabled: true,
   // Para controlar toasts e animações a partir do estado
   toastInfo: null,
   leveledUpAttributeId: null,
 };
 
 // --- LÓGICA DE ATUALIZAÇÃO DE ESTADO (O REDUCER) ---
-function dataReducer(state, action) {
+function dataReducer(state, action, play) {
   switch (action.type) {
     case 'COMPLETE_TASK': {
         const { taskId, attributeId } = action.payload;
@@ -77,6 +79,9 @@ function dataReducer(state, action) {
         newState.user = { ...state.user, coins: state.user.coins + basePoints.coins };
         if (!newState.toastInfo) {
             newState.toastInfo = { message: 'Missão Cumprida!', icon: checkIcon };
+        }
+        if (play && state.soundEnabled) {
+            play('complete');
         }
         return newState;
     }
@@ -179,6 +184,9 @@ function dataReducer(state, action) {
                 newState.toastInfo = { message: `Hábito Completo!`, icon: ATTRIBUTE_ICON_MAP[attribute.name.split(' ')[0]] || checkIcon };
             }
         }
+        if (play && state.soundEnabled) {
+            play(shouldAwardPoints ? 'complete' : 'step');
+        }
         return newState;
     }
 
@@ -189,6 +197,7 @@ function dataReducer(state, action) {
 
         const wasCompleted = goal.milestones.find(m => m.id === milestoneId)?.completed;
         let newState = { ...state };
+        let goalCompleted = false;
 
         newState.goals = state.goals.map(g => {
             if (g.id === goalId) {
@@ -249,16 +258,34 @@ function dataReducer(state, action) {
             newState.user = { ...newState.user, coins: newState.user.coins + bonusPoints.coins };
             newState.completedGoalInfo = updatedGoal; // Para mostrar celebração
             newState.toastInfo = { message: 'META COMPLETA!', icon: trophyIcon };
+            goalCompleted = true;
+        }
+        if (play && state.soundEnabled) {
+            play(goalCompleted ? 'goal_complete' : 'step');
         }
         return newState;
     }
     
-    case 'ADD_GOAL':
+    case 'ADD_GOAL': {
+        if (play && state.soundEnabled) {
+            play('add');
+        }
         return { ...state, goals: [...state.goals, action.payload] };
-    case 'ADD_HABIT':
+    }
+    case 'ADD_HABIT': {
+        if (play && state.soundEnabled) {
+            play('add');
+        }
         return { ...state, habits: [...state.habits, action.payload] };
-    case 'ADD_TASK':
+    }
+    case 'ADD_TASK': {
+        if (play && state.soundEnabled) {
+            play('add');
+        }
         return { ...state, tasks: [...state.tasks, action.payload] };
+    }
+    case 'TOGGLE_SOUND':
+        return { ...state, soundEnabled: !state.soundEnabled };
     case 'ADD_ATTRIBUTE':
         return { ...state, attributes: [...state.attributes, action.payload] };
     case 'UPDATE_ATTRIBUTE':
@@ -292,7 +319,8 @@ const DataStateContext = createContext();
 const DataDispatchContext = createContext();
 
 export function DataProvider({ children }) {
-  const [state, dispatch] = useReducer(dataReducer, INITIAL_DATA);
+  const { play } = useSound();
+  const [state, dispatch] = useReducer((s, a) => dataReducer(s, a, play), INITIAL_DATA);
 
   return (
     <DataStateContext.Provider value={state}>

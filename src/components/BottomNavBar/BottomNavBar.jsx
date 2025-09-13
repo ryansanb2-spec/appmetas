@@ -8,8 +8,9 @@ const BottomNavBar = ({ activeScreen, setActiveScreen }) => {
         { name: 'Metas', icon: '🚩' },
         { name: 'Hábitos', icon: '🔄' },
         { name: 'Tarefas', icon: '✅' },
-        { name: 'Atributos', icon: '👤' },
-    ];
+          { name: 'Atributos', icon: '👤' },
+          { name: 'Config', icon: '⚙️' },
+      ];
 
     return (
         <nav className={styles.navBarContainer}>
