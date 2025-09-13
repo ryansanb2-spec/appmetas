@@ -1,0 +1,1 @@
+export const calculateXpToNextLevel = (level) => 50 * level ** 2 + 50 * level;

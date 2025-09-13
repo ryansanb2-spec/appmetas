@@ -1,0 +1,106 @@
+/* Caminho: src/components/HabitItem/HabitItem.module.css */
+.habitItemContainer {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+.itemCompletedGeneric {
+    opacity: 0.7;
+    background-color: #f8fafc;
+}
+.habitItemMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.habitName {
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 600;
+    margin: 0;
+}
+.habitCue {
+    font-size: 12px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+.habitCheckButton {
+    background-color: #ede9fe;
+    padding: 12px;
+    border-radius: 9999px;
+    transition: background-color 0.2s, transform 0.1s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.habitCheckButton:active {
+    transform: scale(0.9);
+}
+.habitCheckButtonCompleted {
+    background-color: #22c55e;
+    cursor: default;
+}
+.habitCheckIcon {
+    font-size: 24px;
+    color: #5b21b6;
+    line-height: 1;
+    font-weight: bold;
+}
+.habitCheckButtonCompleted .habitCheckIcon {
+    color: white;
+}
+.progressSection {
+    margin-top: 12px;
+}
+.habitProgressTextContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.habitProgressText {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+.habitCompletedTag {
+    font-size: 12px;
+    font-weight: bold;
+    color: #166534;
+    background-color: #dcfce7;
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+.progressBarBg {
+    width: 100%;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    height: 12px;
+    overflow: hidden;
+}
+.progressBarFg {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+}
+.habitStreakContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    background-color: #fffbeb;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+.habitStreakIcon {
+    font-size: 18px;
+    color: #f97316;
+}
+.habitStreakText {
+    margin-left: 8px;
+    color: #f97316;
+    font-weight: bold;
+}

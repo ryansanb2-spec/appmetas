@@ -1,0 +1,29 @@
+/* Caminho: src/components/ScreenHeader/ScreenHeader.module.css */
+.screenHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 4px;
+}
+.screenTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e293b;
+    margin: 0;
+}
+.addButton {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+.addButton:active {
+    transform: scale(0.95);
+}

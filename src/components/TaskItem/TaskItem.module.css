@@ -1,0 +1,127 @@
+/* Caminho: src/components/TaskItem/TaskItem.module.css */
+.taskItemBase {
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.2s;
+}
+.taskItemCompleted {
+    background-color: #f1f5f9;
+    opacity: 0.7;
+}
+.mainContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+.taskCheckbox {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.taskCheckboxCompleted {
+    background-color: #22c55e;
+    border-color: #22c55e;
+}
+.taskCheck {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.taskTextContainer {
+    flex: 1;
+    margin-left: 16px;
+}
+.taskText {
+    font-size: 16px;
+    color: #1e293b;
+    margin: 0;
+}
+.taskTextCompleted {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+.taskDetails {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    gap: 12px;
+}
+.taskPriority {
+    font-size: 12px;
+    color: #ef4444;
+    font-weight: bold;
+}
+.taskInfo {
+    font-size: 12px;
+    color: #64748b;
+}
+.taskCaret {
+    font-size: 12px;
+    color: #94a3b8;
+    transition: transform 0.2s;
+    padding: 8px;
+}
+.subtaskContainer {
+    padding-top: 12px;
+    margin-left: 44px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 12px;
+}
+.subtaskItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 0;
+    cursor: pointer;
+}
+.subtaskCheckbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 12px;
+    transition: all 0.2s;
+}
+.subtaskCheck {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+.subtaskText {
+    font-size: 14px;
+    color: #1e293b;
+}
+.subtaskTextCompleted {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+.progressBarBg {
+    height: 6px;
+    margin-top: 12px;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.progressBarFg {
+    height: 100%;
+    background-color: #3b82f6;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+}

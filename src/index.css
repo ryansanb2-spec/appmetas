@@ -1,0 +1,48 @@
+/* Reset Básico e Fonte */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animações Globais */
+@keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes slide-up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+/* Classes do App Container (movidas do objeto de styles) */
+.safeArea {
+    background-color: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.appContainer {
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    max-height: 800px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+/* ... etc. */
+
+/* Estilos do Toast Container */
+.toast-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    pointer-events: none;
+}

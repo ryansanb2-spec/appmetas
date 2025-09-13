@@ -1,0 +1,102 @@
+/* Caminho: src/components/AttributeCard/AttributeCard.module.css */
+.attributeCardContainer {
+    position: relative;
+    background-color: white;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.attributeCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.attributeCardName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e293b;
+}
+.attributeCardLevel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4f46e5;
+    background-color: #eef2ff;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    display: inline-block;
+}
+.progressBarBg {
+    width: 100%;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    height: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+.progressBarFg {
+    background-color: #f59e0b; /* Amarelo/Laranja para XP */
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+}
+.attributeCardXpText {
+    font-size: 12px;
+    color: #64748b;
+    text-align: right;
+    margin: 4px 0 0 0;
+}
+.attributeMenuButton {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #94a3b8;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.attributeMenu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 10;
+    overflow: hidden;
+}
+.attributeMenuItem {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+.attributeMenuItem:hover {
+    background-color: #f8fafc;
+}
+.deleteOption {
+    color: #ef4444;
+}
+/* Animação de Level Up */
+.levelUp {
+    animation: level-up-glow 2s ease-out;
+}
+@keyframes level-up-glow {
+    0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+    40% { box-shadow: 0 0 10px 15px rgba(245, 158, 11, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+.attributeCardLevelUp {
+    animation: level-up-pop 0.5s ease;
+}
+@keyframes level-up-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
