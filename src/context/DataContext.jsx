@@ -1,5 +1,18 @@
 // Caminho: src/context/DataContext.jsx
 import React, { createContext, useReducer, useContext } from 'react';
+import partyIcon from '../assets/icon-party.svg';
+import checkIcon from '../assets/icon-check.svg';
+import flagIcon from '../assets/icon-flag.svg';
+import trophyIcon from '../assets/icon-trophy.svg';
+import brainIcon from '../assets/icon-brain.svg';
+import disciplineIcon from '../assets/icon-discipline.svg';
+import heartIcon from '../assets/icon-heart.svg';
+
+const ATTRIBUTE_ICON_MAP = {
+  '🧠': brainIcon,
+  '💪': disciplineIcon,
+  '❤️': heartIcon,
+};
 
 // --- FUNÇÕES HELPER ---
 const calculateXpToNextLevel = (level) => 50 * level ** 2 + 50 * level;
@@ -54,7 +67,7 @@ function dataReducer(state, action) {
                     newLevel++;
                     xpToNext = calculateXpToNextLevel(newLevel);
                     newState.leveledUpAttributeId = attr.id; // Animação
-                    newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                    newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: partyIcon };
                 }
                 return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
             }
@@ -63,7 +76,7 @@ function dataReducer(state, action) {
 
         newState.user = { ...state.user, coins: state.user.coins + basePoints.coins };
         if (!newState.toastInfo) {
-            newState.toastInfo = { message: 'Missão Cumprida!', icon: '✅' };
+            newState.toastInfo = { message: 'Missão Cumprida!', icon: checkIcon };
         }
         return newState;
     }
@@ -102,7 +115,7 @@ function dataReducer(state, action) {
                         newLevel++;
                         xpToNext = calculateXpToNextLevel(newLevel);
                         newState.leveledUpAttributeId = attr.id;
-                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: partyIcon };
                     }
                     return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
                 }
@@ -110,7 +123,7 @@ function dataReducer(state, action) {
             });
             newState.user = { ...newState.user, coins: newState.user.coins + basePoints.coins };
             if (!newState.toastInfo) {
-               newState.toastInfo = { message: 'Missão Cumprida!', icon: '✅' };
+               newState.toastInfo = { message: 'Missão Cumprida!', icon: checkIcon };
             }
         }
         return newState;
@@ -154,7 +167,7 @@ function dataReducer(state, action) {
                         newLevel++;
                         xpToNext = calculateXpToNextLevel(newLevel);
                         newState.leveledUpAttributeId = attr.id;
-                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: partyIcon };
                     }
                     return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
                 }
@@ -162,7 +175,7 @@ function dataReducer(state, action) {
             });
             newState.user = { ...newState.user, coins: newState.user.coins + basePoints.coins };
              if (!newState.toastInfo) {
-                newState.toastInfo = { message: `Hábito Completo!`, icon: attribute.name.split(' ')[0]};
+                newState.toastInfo = { message: `Hábito Completo!`, icon: ATTRIBUTE_ICON_MAP[attribute.name.split(' ')[0]] || checkIcon };
             }
         }
         return newState;
@@ -199,7 +212,7 @@ function dataReducer(state, action) {
                         newLevel++;
                         xpToNext = calculateXpToNextLevel(newLevel);
                         newState.leveledUpAttributeId = attr.id;
-                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: partyIcon };
                     }
                     return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
                 }
@@ -207,7 +220,7 @@ function dataReducer(state, action) {
             });
             newState.user = { ...newState.user, coins: newState.user.coins + basePoints.coins };
              if (!newState.toastInfo) {
-                newState.toastInfo = { message: 'Marco Conquistado!', icon: '🚩' };
+                newState.toastInfo = { message: 'Marco Conquistado!', icon: flagIcon };
             }
         }
         // Lógica de completar a meta inteira
@@ -226,7 +239,7 @@ function dataReducer(state, action) {
                         newLevel++;
                         xpToNext = calculateXpToNextLevel(newLevel);
                         newState.leveledUpAttributeId = attr.id; // Animação
-                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: '🎉'};
+                        newState.toastInfo = { message: `LEVEL UP! Nível ${newLevel} em ${attr.name.split(' ')[1]}`, icon: partyIcon };
                     }
                     return { ...attr, xp: newXp, level: newLevel, xpToNextLevel: xpToNext };
                 }
@@ -234,7 +247,7 @@ function dataReducer(state, action) {
             });
             newState.user = { ...newState.user, coins: newState.user.coins + bonusPoints.coins };
             newState.completedGoalInfo = updatedGoal; // Para mostrar celebração
-            newState.toastInfo = { message: 'META COMPLETA!', icon: '🏆' };
+            newState.toastInfo = { message: 'META COMPLETA!', icon: trophyIcon };
         }
         return newState;
     }
