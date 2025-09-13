@@ -8,6 +8,7 @@ import GoalsScreen from './screens/GoalsScreen';
 import HabitsScreen from './screens/HabitsScreen';
 import TasksScreen from './screens/TasksScreen';
 import AttributesScreen from './screens/AttributesScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 // Import Components
 import Header from './components/Header/Header';
@@ -58,6 +59,8 @@ export default function App() {
                 return <TasksScreen onAddTask={() => onOpenModal('addTask')} />;
             case 'Atributos':
                 return <AttributesScreen onAddAttribute={() => onOpenModal('addAttribute')} onEditAttribute={(attr) => onOpenModal('editAttribute', attr)} onDeleteAttribute={(attr) => onOpenModal('deleteAttribute', attr)} />;
+            case 'Config':
+                return <SettingsScreen />;
             default:
                 return <HomeScreen setActiveScreen={setActiveScreen} setHabitActionMenu={setHabitActionMenu} />;
         }
