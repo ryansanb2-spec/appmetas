@@ -41,7 +41,7 @@
     transform: scale(0.9);
 }
 .habitCheckButtonCompleted {
-    background-color: #22c55e;
+    background-color: var(--color-primary);
     cursor: default;
 }
 .habitCheckIcon {

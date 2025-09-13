@@ -59,7 +59,7 @@
 .modalStepTitle {
     font-size: 18px;
     font-weight: bold;
-    color: #4f46e5;
+    color: var(--color-primary);
     margin-bottom: 16px;
     text-align: center;
 }
@@ -115,7 +115,7 @@
 }
 .primaryButton {
     flex: 1;
-    background-color: #4f46e5;
+    background-color: var(--color-primary);
     color: white;
     padding: 12px 20px;
     border-radius: 9999px;
@@ -168,7 +168,7 @@
 .addButton {
     width: 100%;
     text-align: center;
-    color: #4f46e5;
+    color: var(--color-primary);
     font-weight: 600;
     padding: 8px;
     border-radius: 8px;

@@ -1,3 +1,10 @@
+/* Paleta de cores global */
+:root {
+    --color-primary: #58cc02;
+    --color-accent: #ffd300;
+    --color-bg: #f0fdfa;
+}
+
 /* Reset Básico e Fonte */
 body {
     margin: 0;
@@ -12,7 +19,7 @@ body {
 
 /* Classes do App Container (movidas do objeto de styles) */
 .safeArea {
-    background-color: #f1f5f9;
+    background-color: var(--color-bg);
     display: flex;
     justify-content: center;
     align-items: center;

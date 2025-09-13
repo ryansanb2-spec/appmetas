@@ -67,7 +67,7 @@
 .allDoneContainer {
     text-align: center;
     padding: 32px 16px;
-    background-color: #f0fdf4;
+    background-color: var(--color-bg);
     border-radius: 16px;
     margin: 16px 0;
 }

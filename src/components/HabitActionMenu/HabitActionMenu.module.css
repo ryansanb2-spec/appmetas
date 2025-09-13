@@ -67,7 +67,7 @@
     box-sizing: border-box;
 }
 .addButton {
-    background-color: #4f46e5;
+    background-color: var(--color-primary);
     color: white;
     font-weight: bold;
     padding: 0 16px;
