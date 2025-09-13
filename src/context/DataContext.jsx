@@ -83,7 +83,6 @@ function dataReducer(state, action) {
 
     case 'TOGGLE_SUBTASK': {
         const { taskId, subtaskId } = action.payload;
-        let taskCompleted = false;
         let attributeIdToReward = null;
         let newState = { ...state };
 
@@ -94,16 +93,18 @@ function dataReducer(state, action) {
                 );
                 const allSubtasksCompleted = newSubtasks.every(st => st.completed);
                 if (allSubtasksCompleted && !task.completed) {
-                    taskCompleted = true;
                     attributeIdToReward = task.linkedAttribute;
                     return { ...task, subtasks: newSubtasks, completed: true, completionDate: new Date().toISOString() };
+                }
+                if (!allSubtasksCompleted && task.completed) {
+                    return { ...task, subtasks: newSubtasks, completed: false, completionDate: null };
                 }
                 return { ...task, subtasks: newSubtasks };
             }
             return task;
         });
 
-        if (taskCompleted) {
+        if (attributeIdToReward) {
             const basePoints = { xp: 110, coins: 5 };
             newState.attributes = newState.attributes.map(attr => {
                  if (attr.id === attributeIdToReward) {
