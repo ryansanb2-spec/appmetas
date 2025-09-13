@@ -185,7 +185,208 @@ export const AddHabitModal = ({ onClose }) => {
 
 // (Os outros modais como AddTask, AddAttribute, etc. seguiriam o mesmo padrão)
 // Por enquanto, vamos focar nesses dois para você testar.
-export const AddTaskModal = ({onClose}) => <div>Em breve...</div>;
+export const AddTaskModal = ({ onClose }) => {
+    const { attributes } = useData();
+    const dispatch = useDispatch();
+    const [step, setStep] = useState(1);
+    const [taskData, setTaskData] = useState({
+        text: '',
+        linkedAttribute: attributes[0]?.id || '',
+        endDate: '',
+        priority: 1,
+        energy: 1,
+        subtasks: [''],
+    });
+
+    const handleSubtaskChange = (index, value) => {
+        const updated = [...taskData.subtasks];
+        updated[index] = value;
+        setTaskData({ ...taskData, subtasks: updated });
+    };
+
+    const addSubtask = () => setTaskData({ ...taskData, subtasks: [...taskData.subtasks, ''] });
+    const removeSubtask = (index) => {
+        if (taskData.subtasks.length > 1) {
+            setTaskData({ ...taskData, subtasks: taskData.subtasks.filter((_, i) => i !== index) });
+        }
+    };
+
+    const handleSaveTask = () => {
+        if (!taskData.text.trim()) {
+            alert('Descreva a tarefa!');
+            return;
+        }
+
+        const finalSubtasks = taskData.subtasks
+            .map(name => name.trim())
+            .filter(name => name !== '')
+            .map((text, index) => ({
+                id: `st_${Date.now()}_${index}`,
+                text,
+                completed: false,
+            }));
+
+        const taskToAdd = {
+            id: `task_${Date.now()}`,
+            text: taskData.text.trim(),
+            linkedAttribute: taskData.linkedAttribute,
+            endDate: taskData.endDate,
+            priority: parseInt(taskData.priority, 10) || 1,
+            energy: parseInt(taskData.energy, 10) || 1,
+            subtasks: finalSubtasks,
+            completed: false,
+        };
+
+        dispatch({ type: 'ADD_TASK', payload: taskToAdd });
+        onClose();
+    };
+
+    return (
+        <div>
+            <h3 className={styles.modalTitle}>Criar Nova Tarefa</h3>
+
+            {step === 1 && (
+                <div>
+                    <p className={styles.modalStepTitle}>Passo 1: Descrição</p>
+                    <label className={styles.modalLabel}>O que precisa ser feito?</label>
+                    <input
+                        type="text"
+                        className={styles.modalInput}
+                        placeholder="Descrição da tarefa"
+                        value={taskData.text}
+                        onChange={e => setTaskData({ ...taskData, text: e.target.value })}
+                    />
+                    <small>Dica: Comece com um verbo no infinitivo (ex.: 'Ler capítulo 3')</small>
+                    <div className={styles.buttonGroup}>
+                        <button onClick={() => setStep(2)} className={`${styles.primaryButton} ${styles.fullWidth}`}>Próximo</button>
+                    </div>
+                </div>
+            )}
+
+            {step === 2 && (
+                <div>
+                    <p className={styles.modalStepTitle}>Passo 2: Objetivo/Atributo</p>
+                    <label className={styles.modalLabel}>Para qual atributo?</label>
+                    <select
+                        className={styles.modalInput}
+                        value={taskData.linkedAttribute}
+                        onChange={e => setTaskData({ ...taskData, linkedAttribute: e.target.value })}
+                    >
+                        {attributes.map(attr => (
+                            <option key={attr.id} value={attr.id}>{attr.name}</option>
+                        ))}
+                    </select>
+                    <small>Vincule a tarefa a um objetivo para aumentar o compromisso</small>
+                    <div className={styles.buttonGroup}>
+                        <button onClick={() => setStep(1)} className={styles.secondaryButton}>Voltar</button>
+                        <button onClick={() => setStep(3)} className={styles.primaryButton}>Próximo</button>
+                    </div>
+                </div>
+            )}
+
+    {step === 3 && (
+                <div>
+                    <p className={styles.modalStepTitle}>Passo 3: Prazo e Esforço</p>
+                    <div className={styles.dateContainer}>
+                        <div>
+                            <label className={styles.modalLabel}>Prazo</label>
+                            <input
+                                type="date"
+                                className={styles.modalInput}
+                                value={taskData.endDate}
+                                onChange={e => setTaskData({ ...taskData, endDate: e.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label className={styles.modalLabel}>Prioridade</label>
+                            <input
+                                type="number"
+                                className={styles.modalInput}
+                                min="1" max="5"
+                                value={taskData.priority}
+                                onChange={e => setTaskData({ ...taskData, priority: e.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label className={styles.modalLabel}>Energia</label>
+                            <input
+                                type="number"
+                                className={styles.modalInput}
+                                min="1" max="5"
+                                value={taskData.energy}
+                                onChange={e => setTaskData({ ...taskData, energy: e.target.value })}
+                            />
+                        </div>
+                    </div>
+                    <small>Datas concretas reduzem procrastinação</small>
+                    <div className={styles.buttonGroup}>
+                        <button onClick={() => setStep(2)} className={styles.secondaryButton}>Voltar</button>
+                        <button onClick={() => setStep(4)} className={styles.primaryButton}>Próximo</button>
+                    </div>
+                </div>
+            )}
+
+            {step === 4 && (
+                <div>
+                    <p className={styles.modalStepTitle}>Passo 4: Subtarefas (opcional)</p>
+                    <div className={styles.inputList}>
+                        {taskData.subtasks.map((st, index) => (
+                            <div key={index} className={styles.inputListItem}>
+                                <input
+                                    type="text"
+                                    placeholder={`Subtarefa ${index + 1}`}
+                                    className={styles.modalInput}
+                                    value={st}
+                                    onChange={e => handleSubtaskChange(index, e.target.value)}
+                                />
+                                <button
+                                    onClick={() => removeSubtask(index)}
+                                    className={styles.removeButton}
+                                    disabled={taskData.subtasks.length <= 1}
+                                >
+                                    -
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    <button onClick={addSubtask} className={styles.addButton}>+ Adicionar Subtarefa</button>
+                    <small>Divida tarefas complexas em passos simples</small>
+                    <div className={styles.buttonGroup}>
+                        <button onClick={() => setStep(3)} className={styles.secondaryButton}>Voltar</button>
+                        <button onClick={() => setStep(5)} className={styles.primaryButton}>Próximo</button>
+                    </div>
+                </div>
+            )}
+
+            {step === 5 && (
+                <div>
+                    <p className={styles.modalStepTitle}>Passo 5: Revisão e confirmação</p>
+                    <ul>
+                        <li><strong>Descrição:</strong> {taskData.text}</li>
+                        <li><strong>Atributo:</strong> {attributes.find(a => a.id === taskData.linkedAttribute)?.name}</li>
+                        <li><strong>Prazo:</strong> {taskData.endDate ? new Date(taskData.endDate).toLocaleDateString() : 'Sem prazo'}</li>
+                        <li><strong>Prioridade:</strong> P{taskData.priority}</li>
+                        <li><strong>Energia:</strong> {'⚡️'.repeat(taskData.energy)}</li>
+                        {taskData.subtasks.some(st => st.trim()) && (
+                            <li>
+                                <strong>Subtarefas:</strong>
+                                <ul>
+                                    {taskData.subtasks.filter(st => st.trim()).map((st, idx) => (
+                                        <li key={idx}>{st}</li>
+                                    ))}
+                                </ul>
+                            </li>
+                        )}
+                    </ul>
+                    <div className={styles.buttonGroup}>
+                        <button onClick={() => setStep(4)} className={styles.secondaryButton}>Voltar</button>
+                        <button onClick={handleSaveTask} className={styles.primaryButton}>Salvar</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 export const AddAttributeModal = ({onClose}) => <div>Em breve...</div>;
 export const EditAttributeModal = ({onClose}) => <div>Em breve...</div>;
 export const DeleteAttributeModal = ({onClose}) => <div>Em breve...</div>;
