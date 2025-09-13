@@ -41,9 +41,9 @@
     transition: color 0.2s, font-weight 0.2s;
 }
 .navItem.active .navIcon {
-    color: #4f46e5;
+    color: var(--color-primary);
 }
 .navItem.active .navText {
-    color: #4f46e5;
+    color: var(--color-primary);
     font-weight: bold;
 }

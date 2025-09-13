@@ -21,7 +21,7 @@
 .attributeCardLevel {
     font-size: 14px;
     font-weight: 600;
-    color: #4f46e5;
+    color: var(--color-primary);
     background-color: #eef2ff;
     padding: 4px 10px;
     border-radius: 9999px;

@@ -32,7 +32,7 @@
 .headerStatChip {
     display: flex;
     align-items: center;
-    background-color: #fef3c7;
+    background-color: var(--color-accent);
     padding: 8px 12px;
     border-radius: 9999px;
 }
@@ -48,7 +48,7 @@
 .headerStatTextCoins {
     margin-left: 8px;
     font-weight: bold;
-    color: #d97706;
+    color: var(--color-accent);
 }
 
 .headerStatTextTokens {
